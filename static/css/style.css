@@ -1,0 +1,13 @@
+#left { 
+    width:10%;
+    min-height: 500px;
+    background:red;
+    float:left;
+}
+#right {
+    min-height:500px;
+    background:blue;
+    float:left;
+    width:90%;
+}
+

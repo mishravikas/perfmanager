@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>User Profile</title>
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="container">
+         <h1 class="">Edit Profile</h1>
+
+        <hr class="">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{ img_url }}" class="avatar img-circle" alt="avatar">
+                     <h6 class="">Change your photo from <a href="http://gravatar.com">gravatar</a></h6>
+                </div>
+            </div>
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    Please update your profile if logging for the first time.
+                </div>
+                {% if form.errors %}
+                    <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                 <h3 class="">Personal info</h3>
+
+                 <form class="form-horizontal" action="" method="post" role="form">
+                    {% csrf_token %}
+                    {{ form.as_ul }}
+                    <input class="btn btn-primary" value="Save Changes" type="submit">
+                </form>
+
+        </div>
+    </div>
+
+{% endblock %}

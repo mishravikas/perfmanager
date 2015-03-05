@@ -1,0 +1,84 @@
+{% load staticfiles %}
+{% load browserid %}
+{% browserid_info %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    {% block title %} 
+    {% endblock %}
+    <link rel="stylesheet"  href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+<body class="noscript">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Perf Manager</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Alerts</a></li>
+            <li><a href="#">Expired Alerts</a></li>
+            <li><a href="#">Reports</a></li>
+          </ul>
+          <div class="navbar-form navbar-left">
+            <select class="form-control" id="actions" onchange="performAction()">
+                <option selected>Actions</option>
+                <option >Change Revision</option>
+                <option >Change Branch</option>
+                <option>Add Bug</option>
+                <option>Add Comment</option>
+                <option>Backout</option>
+                <option>NEW</option>
+                <option>Duplicate</option>
+                <option>Back Filling</option>
+                <option>Investigating</option>
+                <option>Resolved</option>
+                <option>Shipped</option>
+                <option>Wont Fix</option>
+                <option>False Alarm</option>
+                <option>Ignore</option>
+                <option>Not Tracking</option>
+                <option>Too Low</option>
+            </select>
+          </div>
+          {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">            
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ user.email}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="/accounts/profile/">Profile</a></li>
+                        <li class="divider"></li>
+                        <li>{% browserid_logout text='Logout' %}</li>
+                      </ul>
+                    </li>
+            </ul>
+          {% else %}
+            <div class="navbar-form navbar-right" role="search">
+                    {% browserid_login text='Login' color='dark' %}
+            </div>
+          {% endif %}
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+  {% block main_content %}
+
+  {% endblock %}
+
+
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>
