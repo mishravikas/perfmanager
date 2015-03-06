@@ -65,10 +65,10 @@ WSGI_APPLICATION = 'perfmanager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'perfmanager',
-        'USER': 'root',
-        'PASSWORD': 'mishravikas',
-        'HOST': 'localhost',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '',
     }
 }
@@ -101,3 +101,8 @@ STATICFILES_DIRS = [
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates"),
 )
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
