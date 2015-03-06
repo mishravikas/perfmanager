@@ -2,3 +2,4 @@
 *.sqlite3
 migrations/
 local_settings.py
+local_settings_sample.py

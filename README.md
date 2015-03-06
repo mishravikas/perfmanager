@@ -25,9 +25,6 @@ Mozilla perfomance alerts manager
 
     #Instantiate database
     $python manage.py syncdb
-
-    #Populate with dummy alerts data
-    $python manage.py loaddata initial_data.json
     
     #Start the development server
     $python manage.py runserver
