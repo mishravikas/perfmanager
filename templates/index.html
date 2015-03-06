@@ -10,716 +10,71 @@
   <link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
 {% endblock %}
 
-
 {% block main_content %}
   <div class="containerv">
     <div class="panel-group" id="accordion">
+    {% for keyrev,row in alerts.items %}
        <div class="panel panel-danger">
           <div class="panel-heading">
              <h4 class="panel-title">
-             <input id="check-8779" type="checkbox">
+             <input id="check-{{keyrev}}" onclick="checkbox_click(this);" type="checkbox">
                 <a data-toggle="collapse" data-parent="#accordion" 
-                   href="#collapseOne">
-                   29a667ae339b | >15 alerts (Red)
-                   Click me to expand. Click me again to collapse.
+                   href="#collapse{{keyrev}}">
+                   {{keyrev}}
                 </a>
              </h4>
           </div>
-          <div id="collapseOne" class="panel-collapse collapse">
+          <div id="collapse{{keyrev}}" class="panel-collapse collapse in">
             <div class="panel-body">
               <table class="table table-bordered">
-                  <tbody>
-                    <tr id="8779-">
-                        <td class="check-alert"><input id="check-8779" type=
+
+                <tbody>
+                  {% for alert in row %}
+                    <tr id="{{alert.id}}">
+                        <td class="check-alert"><input id="check-{{keyrev}}-{{alert.id}}" type=
                         "checkbox"></td>
 
-                        <td class="data">2015-03-05 00:34:10</td>
+                        <td class="data">{{alert.push_date}}</td>
 
-                        <td class="data">Fx-Team-Non-PGO</td>
+                        <td class="data">{{alert.branch}}</td>
 
-                        <td class="data">Tp5 Optimized (%CPU)</td>
+                        <td class="data">{{alert.test}}</td>
 
-                        <td class="data">WINNT 5.1 (ix)</td>
+                        <td class="data">{{alert.platform}}</td>
 
-                        <td class="data">-19%</td>
+                        <td class="data">{{alert.percent}}</td>
 
                         <td class="data">
                             <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[267,%20132,%2037],%20[267,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
+                            "{{alert.graphurl}}">
                             graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
+                            "{{alert.changeset}}">
                             changeset</a></p>
                         </td>
 
                         <td class="data">
                             <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
+                            "{{alert.bug}}">1139678</a><a href="#"
                             onclick=
                             "updateBug(8779, '1139678', 'Investigating');">+</a> ||
                             <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
+                            "{{alert.treeherderurl}}">
                             tbplurl</a>
                         </td>
-
-                        <td class="data">Investigating</td>
+                        {% if alert.status %}
+                        <td class="data">{{alert.status}}</td>
+                        {% else %}
+                        <td class="data">NEW</td>
+                        {% endif %}
                     </tr>
-
-                    <tr id="8778-">
-                        <td class="check-alert"><input id="check-8778" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:08</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.55%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2037],%20[257,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8778, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8777-">
-                        <td class="check-alert"><input id="check-8777" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:05</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.47%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2037],%20[261,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8777, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8773-">
-                        <td class="check-alert"><input id="check-8773" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:33:41</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized</td>
-
-                        <td class="data">Ubuntu HW 12.04</td>
-
-                        <td class="data">-4.01%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[255,%20132,%2033],%20[255,%20131,%2033]]&amp;datatype=geo&amp;sel=1425319079000,1425491879000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8773, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8772-">
-                        <td class="check-alert"><input id="check-8772" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:33:37</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">Ubuntu HW 12.04</td>
-
-                        <td class="data">-4.05%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2033],%20[261,%20131,%2033]]&amp;datatype=geo&amp;sel=1425319079000,1425491879000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8772, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8771-">
-                        <td class="check-alert"><input id="check-8771" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:33:34</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">Ubuntu HW 12.04</td>
-
-                        <td class="data">-3.36%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2033],%20[257,%20131,%2033]]&amp;datatype=geo&amp;sel=1425319079000,1425491879000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8771, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8766-">
-                        <td class="check-alert"><input id="check-8766" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:31:00</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized</td>
-
-                        <td class="data">Ubuntu HW 12.04 x64</td>
-
-                        <td class="data">-3.66%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[255,%20132,%2035],%20[255,%20131,%2035]]&amp;datatype=geo&amp;sel=1425321658000,1425494458000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8766, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20x64%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8765-">
-                        <td class="check-alert"><input id="check-8765" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:30:58</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">Ubuntu HW 12.04 x64</td>
-
-                        <td class="data">-4.01%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2035],%20[261,%20131,%2035]]&amp;datatype=geo&amp;sel=1425321658000,1425494458000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8765, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20x64%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8764-">
-                        <td class="check-alert"><input id="check-8764" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-04 23:30:55</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">Ubuntu HW 12.04 x64</td>
-
-                        <td class="data">-3.71%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2035],%20[257,%20131,%2035]]&amp;datatype=geo&amp;sel=1425321658000,1425494458000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8764, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Ubuntu%20HW%2012.04%20x64%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-                  </tbody>
+                  {% endfor %}
+                </tbody>
               </table>
             </div>
           </div>
        </div>
-       <div class="panel panel-success">
-          <div class="panel-heading">
-             <h4 class="panel-title">
-             <input id="check-8779" type="checkbox">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                   href="#collapseTwo">
-                   39a667ae33n5 | < 5 alerts (Green) 
-                   Click me to expand. Click me again to collapse.
-                </a>
-             </h4>
-          </div>
-          <div id="collapseTwo" class="panel-collapse collapse in">
-             <div class="panel-body">
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr id="8779-">
-                        <td class="check-alert"><input id="check-8779" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:10</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (%CPU)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-19%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[267,%20132,%2037],%20[267,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8778-">
-                        <td class="check-alert"><input id="check-8778" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:08</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.55%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2037],%20[257,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8778, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8777-">
-                        <td class="check-alert"><input id="check-8777" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:05</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.47%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2037],%20[261,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8777, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-                  </tbody>
-              </table>
-             </div>
-          </div>
-       </div>
-       <div class="panel panel-info">
-          <div class="panel-heading">
-             <h4 class="panel-title">
-             <input id="check-8779" type="checkbox">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                   href="#collapseThree">
-                   29a667ae339b | 5 < alerts < 10 (blue)
-                   Click me to expand. Click me again to collapse.
-                </a>
-             </h4>
-          </div>
-          <div id="collapseThree" class="panel-collapse collapse in">
-             <div class="panel-body">
-                 <table class="table table-bordered">
-                  <tbody>
-                    <tr id="8779-">
-                        <td class="check-alert"><input id="check-8779" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:10</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (%CPU)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-19%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[267,%20132,%2037],%20[267,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8778-">
-                        <td class="check-alert"><input id="check-8778" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:08</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.55%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2037],%20[257,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8778, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8777-">
-                        <td class="check-alert"><input id="check-8777" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:05</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.47%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2037],%20[261,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8777, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-                  </tbody>
-              </table>
-             </div>
-          </div>
-       </div>
-       <div class="panel panel-warning">
-          <div class="panel-heading">
-             <h4 class="panel-title">
-             <input id="check-8779" type="checkbox">
-                <a data-toggle="collapse" data-parent="#accordion" 
-                   href="#collapseFour">
-                   29a667ae339b | 10 < alerts < 15 (Orange)
-                   Click me to expand. Click me again to collapse.
-                </a>
-             </h4>
-          </div>
-          <div id="collapseFour" class="panel-collapse collapse in">
-             <div class="panel-body">
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr id="8779-">
-                        <td class="check-alert"><input id="check-8779" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:10</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (%CPU)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-19%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[267,%20132,%2037],%20[267,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8778-">
-                        <td class="check-alert"><input id="check-8778" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:08</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Private Bytes)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.55%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[257,%20132,%2037],%20[257,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8778, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-
-                    <tr id="8777-">
-                        <td class="check-alert"><input id="check-8777" type=
-                        "checkbox"></td>
-
-                        <td class="data">2015-03-05 00:34:05</td>
-
-                        <td class="data">Fx-Team-Non-PGO</td>
-
-                        <td class="data">Tp5 Optimized (Main RSS)</td>
-
-                        <td class="data">WINNT 5.1 (ix)</td>
-
-                        <td class="data">-2.47%</td>
-
-                        <td class="data">
-                            <p><a href=
-                            "http://graphs.mozilla.org/graph.html#tests=[[261,%20132,%2037],%20[261,%20131,%2037]]&amp;datatype=geo&amp;sel=1425324063000,1425496863000">
-                            graphurl</a> || <a href=
-                            "http://hg.mozilla.org/integration/fx-team/pushloghtml?fromchange=7230951c2c5b&amp;tochange=5cd9065e6cad">
-                            changeset</a></p>
-                        </td>
-
-                        <td class="data">
-                            <a href=
-                            "https://bugzilla.mozilla.org/show_bug.cgi?id=1139678">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8777, '1139678', 'Investigating');">+</a> ||
-                            <a href=
-                            "https://treeherder.mozilla.org/#/jobs?repo=fx-team&amp;fromchange=1cd9590ec3a8&amp;tochange=ed304a94a050&amp;filter-searchStr=Windows%20XP%2032-bit%20fx-team%20talos%20tp5o">
-                            tbplurl</a>
-                        </td>
-
-                        <td class="data">Investigating</td>
-                    </tr>
-                  </tbody>
-                </table>
-             </div>
-          </div>
-       </div>
+       
+    {% endfor %}  
     </div>
   </div>
 {% endblock %}
@@ -729,9 +84,15 @@
     <script src="{% static 'browserid/api.js' %}"></script>
     <script src="{% static 'browserid/browserid.js' %}"></script>
     <script type="text/javascript">
-       $(function () { $('#collapseTwo').collapse('toggle')});
-       $(function () { $('#collapseTwo').collapse('toggle')});
-       $(function () { $('#collapseThree').collapse('toggle')});
-       $(function () { $('#collapseOne').collapse('toggle')});
+    function checkbox_click(alert) {
+        $('[id^="'+alert.id+'"]').prop('checked', alert.checked);
+    }
+
+    function performAction (argument) {
+        alert("Not Implemented yet");
+    }
+    {% for keyrev in alerts %}
+       $(function () { $('#collapse{{keyrev}}').collapse('hide')});
+    {% endfor %}
     </script> 
 {% endblock %}
