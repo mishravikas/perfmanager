@@ -21,7 +21,9 @@ Mozilla perfomance alerts manager
     $cd perfmanager
     $pip install -r requirements.txt
     
-    #Rename local_settings_sample.py to local_settings.py and update the details  
+    #Create a mysql database 'perfdb'
+
+    #Create local_settings.py from local_settings_sample.py with your own details.
 
     #Instantiate database
     $python manage.py syncdb
