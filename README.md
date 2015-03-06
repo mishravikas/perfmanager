@@ -5,7 +5,7 @@ Mozilla perfomance alerts manager
     $sudo apt-get update
 
     #Install virtualenv and pip
-    $sudo apt-get install python-pip python-virtualenv
+    $sudo apt-get install python-pip python-virtualenv python-dev mysql-server libmysqlclient-dev
     
     #Fork perfmanager
     http://github.com/<your_user_name>/perfmanager
