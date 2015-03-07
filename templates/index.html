@@ -8,6 +8,7 @@
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block main_content %}
@@ -29,7 +30,7 @@
               <table class="table table-bordered">
 
                 <tbody>
-                  {% for alert in row %}
+                  {% for alert in row.alerts %}
                     <tr id="{{alert.id}}">
                         <td class="check-alert"><input id="check-{{keyrev}}-{{alert.id}}" type=
                         "checkbox"></td>
@@ -68,6 +69,46 @@
                         {% endif %}
                     </tr>
                   {% endfor %}
+                  {% for alert in row.merged_alerts %}
+                    <tr id="{{alert.id}}" class="mergeddata">
+                        <td class="check-alert"><input id="check-{{keyrev}}-{{alert.id}}" type=
+                        "checkbox"></td>
+
+                        <td class="data">{{alert.push_date}}</td>
+
+                        <td class="data">{{alert.branch}}</td>
+
+                        <td class="data">{{alert.test}}</td>
+
+                        <td class="data">{{alert.platform}}</td>
+
+                        <td class="data">{{alert.percent}}</td>
+
+                        <td class="data">
+                            <p><a href=
+                            "{{alert.graphurl}}">
+                            graphurl</a> || <a href=
+                            "{{alert.changeset}}">
+                            changeset</a></p>
+                        </td>
+
+                        <td class="data">
+                            <a href=
+                            "{{alert.bug}}">1139678</a><a href="#"
+                            onclick=
+                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
+                            <a href=
+                            "{{alert.treeherderurl}}">
+                            tbplurl</a>
+                        </td>
+                        {% if alert.status %}
+                        <td class="data">{{alert.status}}</td>
+                        {% else %}
+                        <td class="data">NEW</td>
+                        {% endif %}
+                    </tr>
+
+                  {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -80,9 +121,6 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="https://login.persona.org/include.js"></script>
-    <script src="{% static 'browserid/api.js' %}"></script>
-    <script src="{% static 'browserid/browserid.js' %}"></script>
     <script type="text/javascript">
     function checkbox_click(alert) {
         $('[id^="'+alert.id+'"]').prop('checked', alert.checked);
@@ -94,5 +132,8 @@
     {% for keyrev in alerts %}
        $(function () { $('#collapse{{keyrev}}').collapse('hide')});
     {% endfor %}
-    </script> 
+    </script>
+    <script src="https://login.persona.org/include.js"></script>
+    <script src="{% static 'browserid/api.js' %}"></script>
+    <script src="{% static 'browserid/browserid.js' %}"></script> 
 {% endblock %}
