@@ -8,8 +8,9 @@ def get_merged_alerts():
     delta = datetime.datetime.today()-datetime.timedelta(days=126)
     query=(Q(status='')|Q(status='NEW')|Q(status='Investigating'))&Q(push_date__gt=delta)
     merged_alerts = Alerts.objects.filter(query).exclude(mergedfrom__isnull=True).exclude(mergedfrom__exact='')
-
+    # print merged_alerts.query
     for alert in merged_alerts:
+        # print alert.id
         row = {'backout': alert.backout, 'branch': alert.branch, 'bug':alert.bug, 'bugcount':alert.bugcount, 'changeset': alert.changeset, 'comment': alert.comment, 'duplicate': alert.duplicate,
                 'email': alert.email, 'graphurl': alert.graphurl, 'id': alert.id, 'keyrevision': alert.keyrevision, 'mergedfrom': alert.mergedfrom, 'percent': alert.percent, 'platform': alert.platform,
                 'push_date': alert.push_date.strftime("%Y-%m-%d %H:%M:%S"), 'status': alert.status, 'treeherderurl': alert.treeherderurl, 'test': alert.test}

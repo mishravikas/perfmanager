@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
@@ -54,10 +53,12 @@
                         </td>
 
                         <td class="data">
+                          {% if alert.bug %}
                             <a href=
-                            "{{alert.bug}}">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
+                            "https://bugzilla.mozilla.org/show_bug.cgi?id={{alert.bug}}">{{alert.bug}}</a>
+                          {% else %}                            
+                          <a href='#'>Bug+</a>
+                          {% endif %} ||
                             <a href=
                             "{{alert.treeherderurl}}">
                             tbplurl</a>
@@ -93,10 +94,12 @@
                         </td>
 
                         <td class="data">
+                          {% if alert.bug %}
                             <a href=
-                            "{{alert.bug}}">1139678</a><a href="#"
-                            onclick=
-                            "updateBug(8779, '1139678', 'Investigating');">+</a> ||
+                            "https://bugzilla.mozilla.org/show_bug.cgi?id={{alert.bug}}">{{alert.bug}}</a>
+                          {% else %}                            
+                          <a href='#'>Bug+</a>
+                          {% endif %}  ||
                             <a href=
                             "{{alert.treeherderurl}}">
                             tbplurl</a>
@@ -118,6 +121,42 @@
     {% endfor %}  
     </div>
   </div>
+  <div  id="addCommentpopup" style="display: none;">
+          <p>Name/email  <input required type="text" id="commentName" value=""></p>
+          <p>Comment <textarea required cols="20" rows="5" id="commentText"></textarea></p>
+  </div>
+  <div  id="changeBranchpopup" style="display: none;">
+      <p>
+        <select class="form-control" id="branchName">
+          <option selected>Select Branch</option>
+          <option>Mozilla-Inbound</option>
+          <option>B2g-Inbound-Non-PGO</option>
+          <option>Firefox</option>
+          <option>Mozilla-Inbound-Non-PGO</option>
+          <option>Firefox-Non-PGO</option>
+          <option>Mozilla-Beta</option>
+          <option>Fx-Team-Non-PGO</option>
+          <option>Mozilla-Aurora</option>
+          <option>Fx-Team</option>
+          <option>B2g-Inbound</option>
+          <option>mobile</option>
+        </select>
+      </p>
+      <p>Revision <input required type="text" id="revisionName" value=""></p>
+  </div>
+
+  <div  id="fileBugpopup" style="display: none;">
+        <p>Summary <textarea required cols="90" rows="2" id="summaryText" value=""></textarea></p>
+        <p>Description <textarea required cols="90" rows="14" id="descriptionText" value=""></textarea></p>
+  </div>
+
+  <div  id="markDuplicatepopup" style="display: none;">
+        <p>Keyrevision  <input required type="text" id="markDuplicateRev" value=""></p>
+  </div>
+
+  <div  id="BackoutPopup" style="display: none;">
+        <p>Bug  <input required type="text" id="BackoutPopupText" value=""></p>
+  </div>
 {% endblock %}
 
 {% block extra_js %}
@@ -126,14 +165,10 @@
         $('[id^="'+alert.id+'"]').prop('checked', alert.checked);
     }
 
-    function performAction (argument) {
-        alert("Not Implemented yet");
-    }
     {% for keyrev in alerts %}
        $(function () { $('#collapse{{keyrev}}').collapse('hide')});
     {% endfor %}
     </script>
     <script src="https://login.persona.org/include.js"></script>
-    <script src="{% static 'browserid/api.js' %}"></script>
-    <script src="{% static 'browserid/browserid.js' %}"></script> 
+    <script src="{% static 'js/alerts.js' %}"></script> 
 {% endblock %}

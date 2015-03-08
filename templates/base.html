@@ -9,9 +9,12 @@
     {% block title %} 
     {% endblock %}
     <link rel="stylesheet"  href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/jquery-ui.min.css' %}">
+    {% browserid_css %}
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     {% block extra_css %}
@@ -60,6 +63,7 @@
                       <ul class="dropdown-menu" role="menu">
                         <li><a href="/accounts/profile/">Profile</a></li>
                         <li class="divider"></li>
+                        {% browserid_info %}
                         <li>{% browserid_logout text='Logout' %}</li>
                       </ul>
                     </li>
@@ -80,5 +84,7 @@
 
     {% block extra_js %}
     {% endblock %}
+    {% browserid_js %}
+
 </body>
 </html>
