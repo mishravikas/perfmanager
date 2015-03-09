@@ -1,5 +1,3 @@
 *.pyc
 *.sqlite3
-migrations/
-perfmanager/local_settings.py
-perfmanager/local_settings_sample.py
+venv/

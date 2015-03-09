@@ -1,0 +1,15 @@
+database:
+    build: ./perfmanager_db
+    expose:
+      - "3036"
+
+web:
+    build: ./perfmanager_web
+    command: /bin/bash /srv/www/perfmanager/run.sh
+    links:
+      - database:database
+    volumes:
+      - ..:/srv/www/perfmanager
+    ports:
+      - "8000:8000"
+

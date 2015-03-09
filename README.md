@@ -1,35 +1,36 @@
 #perfmanager
 Mozilla perfomance alerts manager
+
 ##Ubuntu 14.04 Development Build Instructions
-    #retrieve latest apt-get list
-    $sudo apt-get update
 
-    #Install virtualenv and pip
-    $sudo apt-get install python-pip python-virtualenv python-dev mysql-server libmysqlclient-dev
-    
-    #Fork perfmanager
-    http://github.com/<your_user_name>/perfmanager
+1. Visit [Docker][docker] and get docker up and running on  your system.
 
-    #Clone your forked repo
-    $git clone https://github.com/<your_user_name>/perfmanager.git
+2. Add your user to the `docker` system group. You may need to start a new terminal/session after doing this. Check the output of ``docker ps`` and if you don't see permissions warnings you should be fine.
 
-    #Create and activate a virtualenv
-    $virtualenv venv
-    $source venv/bin/activate
+3. Install docker-compose by following the instructions on [this page][docker-compose]
 
-    #Install the dependencies
-    $cd perfmanager
-    $pip install -r requirements.txt
-    
-    #Create a mysql database 'perfdb'
+3. Run the following git clone (specify a directory of your choosing if you like):
 
-    #Create local_settings.py from local_settings_sample.py with your own details.
+        git clone https://github.com/mishravikas/perfmanager.git
 
-    #Instantiate database
-    $python manage.py syncdb
-    
-    #Start the development server
-    $python manage.py runserver
+4. cd into the name of the directory into which you cloned the git repository
 
+        cd perfmanager
 
+5. Run virtualenv on the git cloned directory to setup the Python virtual environment:
 
+        virtualenv venv
+
+6. Activate the virtual environment:
+
+        source venv/bin/activate
+
+7. Run docker-compose to set up the environment:
+
+        cd dockerfiles; docker-compose up --no-recreate
+
+8. Visit [http://localhost:8080/][localhost] in your browser once you see `Starting Server` on the console.
+
+[docker]: https://docs.docker.com/installation/
+[docker-compose]: http://docs.docker.com/compose/install/
+[localhost]: http://localhost:8080
