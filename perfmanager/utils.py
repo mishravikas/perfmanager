@@ -1,7 +1,9 @@
 from perfmanager.models import Alerts
 from django.db.models import Q
 import datetime
-
+from mozci.sources.buildapi import query_repo_url
+from mozci.sources.pushlog import query_revisions_range_from_revision_and_delta
+from django.conf import settings
 
 def get_merged_alerts():
     retVal = {}
@@ -37,3 +39,57 @@ def get_alerts():
             retVal[alert.keyrevision] = {'alerts':[row]}
 
     return retVal
+
+def get_revision_range(repo_name, revision):
+    """
+    Query pushlog in mozci and return revisions in a range of six.
+    """
+    print repo_name, revision
+    try:
+        if repo_name == 'mobile':
+            repo_name = 'mozilla-central'
+
+        repo_url = query_repo_url(repo_name)
+        print repo_url
+        revlist = query_revisions_range_from_revision_and_delta(repo_url, revision, delta=6)
+    except Exception,e:
+        print e
+        print "exception while getting repo: %s, revision: %s" % (repo_name, revision)
+        raise
+
+    return revlist[0], revlist[-1]
+
+def build_tbpl_link(record):
+    # TODO: is branch valid?
+    tbpl_branch = record.branch.split('-Non-PGO')[0]
+    if tbpl_branch == 'Firefox':
+        treeherder_repo = 'mozilla-central'
+    else:
+        treeherder_repo = tbpl_branch.lower()
+
+    vals = get_revision_range(treeherder_repo, record.keyrevision)
+
+    link = ''
+    if vals:
+        params = []
+
+        tbpl_platform = settings.TBPL_PLATFORMS[record.platform]
+        tbpl_test = settings.TBPL_TESTS[record.test]['jobname']
+        tbpl_tree = settings.TBPL_TREES[record.branch]
+
+        if 'OSX' in tbpl_platform:
+            tbpl_tree = tbpl_tree.split(' pgo')[0]
+
+        params.append(('repo', treeherder_repo))
+        params.append(('fromchange', vals[0]))
+        params.append(('tochange', vals[1]))
+        params.append(('filter-searchStr', '%s %s talos %s' % (tbpl_platform, tbpl_tree, tbpl_test)))
+        link = settings.TREEHERDER_URL
+        delim = '?'
+        for key, value in params:
+            link = "%s%s%s=%s" % (link, delim, key, value)
+            if delim == '?':
+                delim = '&'
+        link = link.replace(' ', '%20')
+
+    return link

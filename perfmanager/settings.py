@@ -14,6 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 import django.conf.global_settings as DEFAULT_SETTINGS
 
 AUTHENTICATION_BACKENDS = DEFAULT_SETTINGS.AUTHENTICATION_BACKENDS + ('django_browserid.auth.BrowserIDBackend',)
+from managed_settings import *
 
 
 # Quick-start development settings - unsuitable for production
