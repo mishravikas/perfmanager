@@ -1,11 +1,8 @@
 #! /bin/bash
 
-# Hack to wait for db to be up and running
-sleep 10
-
-python /srv/www/perfmanager/manage.py migrate
-
-python /srv/www/perfmanager/manage.py loaddata /srv/www/perfmanager/initial_data.json
+# Hack to wait for db to be up and running - to be removed when
+# docker-compose issue #374 is resolved
+sleep 15
 
 echo "Starting Server"
 
