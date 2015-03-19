@@ -18,10 +18,9 @@
           <div class="panel-heading">
              <h4 class="panel-title">
              <input id="check-{{keyrev}}" onclick="checkbox_click(this);" type="checkbox">
-                <a href="/rev/{{keyrev}}">{{keyrev}}</a>
                 <a data-toggle="collapse" data-parent="#accordion" 
                    href="#collapse{{keyrev}}">
-                   <i class="icon-eye-open"></i> 
+                   {{keyrev}}
                 </a>
              </h4>
           </div>
@@ -167,7 +166,7 @@
     }
 
     {% for keyrev in alerts %}
-       $(function () { $('#collapse{{keyrev}}').collapse('hide')});
+       $(function () { $('#collapse{{keyrev}}').collapse('show')});
     {% endfor %}
     </script>
     <script src="https://login.persona.org/include.js"></script>

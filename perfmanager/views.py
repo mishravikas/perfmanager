@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from perfmanager.models import Alerts
 import datetime
 import json
@@ -110,3 +110,16 @@ def updatefields(request):
 
 
     return HttpResponse("DONE")
+
+def revision(request, keyrev):
+    alerts = get_list_or_404(Alerts, keyrevision=keyrev)
+    retVal = utils.get_alerts_by_keyrev(keyrev)
+    merged_alerts = utils.get_merged_alerts_by_keyrev(keyrev)
+    for key,value in merged_alerts.items():
+        exists = retVal.get(key, None)
+        if exists:
+            retVal[key]['merged_alerts'] = value
+        else:
+            retVal[key] = {}
+            retVal[key]['merged_alerts'] = value
+    return render(request, 'keyrev.html',{'alerts':retVal})
