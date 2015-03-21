@@ -5,11 +5,10 @@ database:
 
 web:
     build: ./perfmanager_web
-    command: /bin/bash /srv/www/perfmanager/run.sh
     links:
       - database:database
     volumes:
-      - ..:/srv/www/perfmanager
+      - .:/srv/www/perfmanager
     ports:
       - "8000:8000"
 
